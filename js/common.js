@@ -77,6 +77,7 @@ function zhuzhi(event) {
   copyTxt(number, text)
 }
 
+
 // 获取祝福语数据
 function appLoad() {
   var btn = document.querySelector(".btn")
