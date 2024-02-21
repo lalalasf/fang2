@@ -90,13 +90,16 @@ function appLoad() {
   //2.初始化 设置请求方法和url
   var url = "http://127.0.0.1:9111/";
   var url1 = "";
-  xhr.open("GET", url + "fang3/zfy"); 
+  xhr.open("GET", url + "fang3/zfy");
   xhr.send()
   //4.事件绑定 处理服务端返回的结果 
   xhr.onreadystatechange = function() {
     if (xhr.readyState == 4) {
       if (xhr.status == 200) {
-
+        /**
+         * 获取祝福语数据
+         * 可以写死为json数据，祝福语编号为 id，内容为 contet
+         */
         var data = JSON.parse(xhr.response);
         data = data.data;
         var i;
