@@ -88,9 +88,9 @@ function appLoad() {
   //1.创建对象
   const xhr = new XMLHttpRequest()
   //2.初始化 设置请求方法和url
-  var url = "http://127.0.0.1:9111/";
-  var url1 = "";
-  xhr.open("GET", url + "fang3/zfy");
+  var test_url = "http://127.0.0.1:9111";
+  var dev_url = "http://yu5te4.natappfree.cc";
+  xhr.open("GET", test_url + "/fang3/zfy");
   xhr.send()
   //4.事件绑定 处理服务端返回的结果 
   xhr.onreadystatechange = function() {
