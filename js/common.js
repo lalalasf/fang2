@@ -77,44 +77,43 @@ function zhuzhi(event) {
   copyTxt(number, text)
 }
 
-// 获取祝福语数据
-function appLoad() {
-  var btn = document.querySelector(".btn")
-  const result = document.getElementById("result")
-  btn.addEventListener("click", function() {
-    //1.创建对象
-    const xhr = new XMLHttpRequest()
-    //2.初始化 设置请求方法和url
-    var url = "http://127.0.0.1:9111/";
-    var url1 = "";
-    xhr.open("GET", url + "fang3/zfy"); //?后面是get请求加参数方法
-    //3.发送
-    xhr.send()
-    //4.事件绑定 处理服务端返回的结果 
-    xhr.onreadystatechange = function() {
-      if (xhr.readyState == 4) {
-        if (xhr.status == 200) {
-          var data = JSON.parse(xhr.response);
-          data = data.data;
-
-          var i;
-          var html = ''; //用一个变量来存储json中的数据
-          for (i = 0; i < data.length; i++) { //用for循环遍历数组将数据存入html变量中
-            html += `<tr class="line_data">
-                              <td>${data[i].id}</td>
-                              <td><button class="btnn" onclick="zhuzhi(event)"><font style="display:none">${data[i].id},</font>${data[i].context}</button></td>
-                          </tr>`;
-          }
-          // console.log(html)
-          document.getElementById("box").innerHTML += html;
-          // result.innerHTML = data; //把响应结果给div盒子
-        } else {
-          alert("请求异常")
-        }
-      }
-
-    }
-  })
+// 只可点击一次
+function dianji() {
+  document.getElementById("getRequest").disabled = true;
+  appLoad();
 }
 
-window.onload = appLoad;
+// 获取祝福语数据
+function appLoad() {
+  //1.创建对象
+  const xhr = new XMLHttpRequest()
+  //2.初始化 设置请求方法和url
+  var url = "http://127.0.0.1:9111/";
+  var url1 = "";
+  xhr.open("GET", url + "fang3/zfy"); //?后面是get请求加参数方法
+  //3.发送
+  xhr.send()
+  //4.事件绑定 处理服务端返回的结果 
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      if (xhr.status == 200) {
+
+        var data = JSON.parse(xhr.response);
+        data = data.data;
+        var i;
+        var html = ''; //用一个变量来存储json中的数据
+        for (i = 0; i < data.length; i++) { //用for循环遍历数组将数据存入html变量中
+          html += `<tr class="line_data">
+                            <td>${data[i].id}</td>
+                            <td><button class="btnn" onclick="zhuzhi(event)"><font style="display:none">${data[i].id},</font>${data[i].context}</button></td>
+                        </tr>`;
+        }
+        // console.log(html)
+        document.getElementById("box").innerHTML += html;
+        // result.innerHTML = data; //把响应结果给div盒子
+      } else {
+        alert("请求异常")
+      }
+    }
+  }
+}
