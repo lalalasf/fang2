@@ -113,8 +113,51 @@ function zhuzhi(event) {
 }
 
 // 只可点击一次
+<<<<<<< HEAD
 function dianji() {
+=======
+function _clickRequest() {
+>>>>>>> b618d6a3e03d8a19a95c0bd52d9c6264a79481b1
   document.getElementById("getRequest").disabled = true;
   appLoad();
 }
 
+<<<<<<< HEAD
+=======
+// 获取祝福语数据
+function appLoad() {
+  //1.创建对象
+  const xhr = new XMLHttpRequest()
+  //2.初始化 设置请求方法和url
+  var test_url = "http://127.0.0.1:9111";
+  var dev_url = "http://yu5te4.natappfree.cc";
+  xhr.open("GET", test_url + "/fang3/zfy");
+  xhr.send()
+  //4.事件绑定 处理服务端返回的结果 
+  xhr.onreadystatechange = function() {
+    if (xhr.readyState == 4) {
+      if (xhr.status == 200) {
+        /**
+         * 获取祝福语数据
+         * 可以写死为json数据，祝福语编号为 id，内容为 contet
+         */
+        var data = JSON.parse(xhr.response);
+        data = data.data;
+        var i;
+        var html = ''; //用一个变量来存储json中的数据
+        for (i = 0; i < data.length; i++) { //用for循环遍历数组将数据存入html变量中
+          html += `<tr class="line_data">
+                            <td>${data[i].id}</td>
+                            <td><button class="btnn" onclick="zhuzhi(event)"><font style="display:none">${data[i].id},</font>${data[i].context}</button></td>
+                        </tr>`;
+        }
+        // console.log(html)
+        document.getElementById("box").innerHTML += html;
+        // result.innerHTML = data; //把响应结果给div盒子
+      } else {
+        alert("请求异常")
+      }
+    }
+  }
+}
+>>>>>>> b618d6a3e03d8a19a95c0bd52d9c6264a79481b1
