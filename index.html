@@ -166,18 +166,8 @@
         tatol(0, "已复制第：" + number + " 条", 1);
       }
 
-      let allData = []; <<
-      <<
-      <<
-      <
-      HEAD
+      let allData = [];
       let isSingleColumn = true; // 默认是双列显示
-      ===
-      ===
-      = >>>
-      >>>
-      >
-      b618d6a3e03d8a19a95c0bd52d9c6264a79481b1
 
       // 渲染数据
       function renderData(data) {
@@ -189,11 +179,7 @@
           return;
         }
 
-        <<
-        <<
-        <<
-        <
-        HEAD
+
         // 根据当前模式设置容器类名
         container.className = isSingleColumn ? 'single-column' : '';
 
@@ -209,114 +195,76 @@
           // 获取最后一行并添加项目
           const lastRow = container.lastChild;
           const item = createItem(data[i]);
-          lastRow.appendChild(item); ===
-          ===
-          =
-          // 每行放两个 item
-          for (let i = 0; i < data.length; i += 2) {
-            const row = document.createElement('div');
-            row.className = 'list-row';
+          lastRow.appendChild(item);
+        }
+      }
 
-            const item1 = createItem(data[i]);
-            row.appendChild(item1);
+      // 创建单个条目
+      function createItem(item) {
+        const div = document.createElement('div');
+        div.className = 'item';
+        div.setAttribute('onclick', `copyTxt('${item.id}', '${item.context.replace(/'/g, "\\'")}')`);
+        div.innerHTML = `<div class="text-part">${item.id}. ${item.context}</div>`;
+        return div;
+      }
 
-            if (data[i + 1]) {
-              const item2 = createItem(data[i + 1]);
-              row.appendChild(item2);
-            }
+      // 获取全部数据
+      function loadData() {
+        if (allData.length > 0) {
+          return;
+        }
 
-            container.appendChild(row); >>>
-            >>>
-            >
-            b618d6a3e03d8a19a95c0bd52d9c6264a79481b1
+        const xhr = new XMLHttpRequest();
+        const dev_url = "http://1.95.169.223";
+        xhr.open("GET", `${dev_url}/fang3/zfy`);
+        xhr.send();
+        xhr.onreadystatechange = function() {
+          if (xhr.readyState === 4 && xhr.status === 200) {
+            const res = JSON.parse(xhr.responseText);
+            allData = res.data || [];
+          } else if (xhr.readyState === 4) {
+            tatol(1, "请求异常", 1);
           }
-        }
-
-        // 创建单个条目
-        function createItem(item) {
-          const div = document.createElement('div');
-          div.className = 'item';
-          div.setAttribute('onclick', `copyTxt('${item.id}', '${item.context.replace(/'/g, "\\'")}')`);
-          div.innerHTML = `<div class="text-part">${item.id}. ${item.context}</div>`;
-          return div;
-        }
-
-        // 获取全部数据
-        function loadData() {
-          if (allData.length > 0) {
-            return;
-          }
-
-          const xhr = new XMLHttpRequest();
-          const dev_url = "http://1.95.169.223";
-          xhr.open("GET", `${dev_url}/fang3/zfy`);
-          xhr.send();
-          xhr.onreadystatechange = function() {
-            if (xhr.readyState === 4 && xhr.status === 200) {
-              const res = JSON.parse(xhr.responseText);
-              allData = res.data || [];
-            } else if (xhr.readyState === 4) {
-              tatol(1, "请求异常", 1);
-            }
-          };
-        }
-
-        // 显示指定范围的数据
-        function showRange(start, end) {
-          if (allData.length === 0) {
-            tatol(1, "请先加载数据", 1);
-            return;
-          }
-
-          <<
-          <<
-          <<
-          <
-          HEAD
-          const filtered = allData.filter(item => parseInt(item.id) >= start && parseInt(item.id) <= end);
-          renderData(filtered);
-        }
-
-        // 切换布局
-        function toggleLayout() {
-          isSingleColumn = !isSingleColumn;
-          const toggleBtn = document.getElementById('toggleLayoutBtn');
-          toggleBtn.textContent = isSingleColumn ? '双列显示' : '单列显示';
-
-          // 重新渲染当前显示的数据
-          const container = document.getElementById('listBox');
-          const items = container.querySelectorAll('.item');
-          if (items.length > 0) {
-            const currentData = Array.from(items).map(item => {
-              const id = item.querySelector('.text-part').textContent.split('.')[0];
-              const context = item.querySelector('.text-part').textContent.split('. ')[1];
-              return {
-                id,
-                context
-              };
-            });
-            renderData(currentData);
-          } ===
-          ===
-          =
-          let filtered;
-
-          if (start <= 50) {
-            filtered = allData.filter(item => parseInt(item.id) >= start && parseInt(item.id) <= end);
-          } else {
-            filtered = allData.filter(item => parseInt(item.id) > 50 && parseInt(item.id) <= end);
-          }
-
-          renderData(filtered); >>>
-          >>>
-          >
-          b618d6a3e03d8a19a95c0bd52d9c6264a79481b1
-        }
-
-        // 页面加载时请求数据
-        window.onload = function() {
-          loadData();
         };
+      }
+
+      // 显示指定范围的数据
+      function showRange(start, end) {
+        if (allData.length === 0) {
+          tatol(1, "请先加载数据", 1);
+          return;
+        }
+
+        const filtered = allData.filter(item => parseInt(item.id) >= start && parseInt(item.id) <= end);
+        renderData(filtered);
+      }
+
+      // 切换布局
+      function toggleLayout() {
+        isSingleColumn = !isSingleColumn;
+        const toggleBtn = document.getElementById('toggleLayoutBtn');
+        toggleBtn.textContent = isSingleColumn ? '双列显示' : '单列显示';
+
+        // 重新渲染当前显示的数据
+        const container = document.getElementById('listBox');
+        const items = container.querySelectorAll('.item');
+        if (items.length > 0) {
+          const currentData = Array.from(items).map(item => {
+            const id = item.querySelector('.text-part').textContent.split('.')[0];
+            const context = item.querySelector('.text-part').textContent.split('. ')[1];
+            return {
+              id,
+              context
+            };
+          });
+          renderData(currentData);
+        }
+      }
+
+      // 页面加载时请求数据
+      window.onload = function() {
+        loadData();
+      };
     </script>
 
   </body>
