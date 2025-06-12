@@ -1,21 +1,267 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8" />
-    <title>祝福语</title>
-     <link rel="stylesheet" type="text/css" href="css/common.css">
-  </head>
-  <body style="background-color: #FFFF77;font-size: var(--my-font-size)" onload="">
-    <div style="width: 100%; height: 100%;">
-      <button class="btn" onclick="dianji()" id="getRequest">发送请求</button>
-      <div>
-        <table id="box" class="tab" style="">
-          <tr class="tr1">
-            <td>序号</td>
-            <td>内容</td>
-          </tr>
-        </table>
-      </div>
-      <script type="text/javascript" src="js/common.js"></script>
-  </body>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <title>祝福语</title>
+  <style>
+    :root {
+      --my-font-size: 1em;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #E0F7FA;
+      color: #212121;
+      margin: 0;
+      padding: 0;
+      font-size: var(--my-font-size);
+    }
+
+    .container {
+      padding: 11px;
+    }
+
+    .btn-group {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 20px;
+      gap: 10px;
+    }
+
+    .btn-range {
+      font-size: 1em;
+      padding: 8px 5px;
+      border: 1px solid #ccc;
+      background-color: transparent;
+      color: #333;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      flex: 1;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .btn-range:hover,
+    .btn-range:focus {
+      background-color: #f0f0f0;
+      outline: none;
+    }
+
+    .btn-layout {
+      font-size: 1em;
+      padding: 8px 5px;
+      border: 1px solid #4CAF50;
+      background-color: #4CAF50;
+      color: white;
+      cursor: pointer;
+      border-radius: 5px;
+      transition: all 0.3s ease;
+      flex: 1;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .btn-layout:hover,
+    .btn-layout:focus {
+      background-color: #45a049;
+      outline: none;
+    }
+
+    .list-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 5px;
+      justify-content: center;
+      margin-bottom: 2px;
+    }
+
+    .item {
+      flex: 1 1 calc(50% - 10px);
+      background-color: #ffffff;
+      border-radius: 8px;
+      padding: 7px;
+      box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      box-sizing: border-box;
+    }
+
+    .item:hover {
+      background-color: #f0f0f0;
+    }
+
+    .text-part {
+      font-size: 1em;
+      color: #333;
+      word-break: break-word;
+    }
+
+    .tatol {
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      padding: 15px;
+      border-radius: 5px;
+      width: 80%;
+      max-width: 400px;
+      background: rgba(0, 0, 0, 0.8);
+      color: #fff;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+      text-align: center;
+      font-size: 1em;
+    }
+
+    /* 单列模式 */
+    .single-column .item {
+      flex: 1 1 100%;
+    }
+
+    /* 桌面端调整按钮宽度 */
+    @media (min-width: 601px) {
+      .btn-layout {
+        flex: 0.5;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <div class="btn-group">
+    <button class="btn-range" onclick="showRange(1, 50)">1-50条</button>
+    <button class="btn-range" onclick="showRange(51, 100)">51-100条</button>
+    <button id="toggleLayoutBtn" class="btn-layout" onclick="toggleLayout()">单列显示</button>
+  </div>
+  <div id="listBox"></div>
+</div>
+
+<script>
+  // 提示组件
+  function tatol(status, text, timer = 1) {
+    const toast = document.createElement("div");
+    toast.className = "tatol";
+    toast.innerHTML = `<div class="infoText">${text}</div>`;
+    document.body.appendChild(toast);
+    setTimeout(() => toast.remove(), timer * 1000);
+  }
+
+  // 复制文本到剪贴板
+  function copyTxt(number, text) {
+    if (!document.execCommand) {
+      tatol(1, "复制失败，请长按复制", 1);
+      return;
+    }
+    const textarea = document.createElement("textarea");
+    textarea.value = text;
+    textarea.style.position = "fixed";
+    textarea.style.opacity = 0;
+    document.body.appendChild(textarea);
+    textarea.select();
+    document.execCommand("copy");
+    document.body.removeChild(textarea);
+    tatol(0, "已复制第：" + number + " 条", 1);
+  }
+
+  let allData = [];
+  let isSingleColumn = true; // 默认是双列显示
+
+  // 渲染数据
+  function renderData(data) {
+    const container = document.getElementById("listBox");
+    container.innerHTML = ''; // 清空旧数据
+
+    if (!data || data.length === 0) {
+      container.innerHTML = `<p style="text-align:center;">暂无数据</p>`;
+      return;
+    }
+
+    // 根据当前模式设置容器类名
+    container.className = isSingleColumn ? 'single-column' : '';
+
+    // 创建行和项目
+    for (let i = 0; i < data.length; i++) {
+      // 每行开始或单列模式下创建新行
+      if (i % 2 === 0 || isSingleColumn) {
+        const row = document.createElement('div');
+        row.className = 'list-row';
+        container.appendChild(row);
+      }
+      
+      // 获取最后一行并添加项目
+      const lastRow = container.lastChild;
+      const item = createItem(data[i]);
+      lastRow.appendChild(item);
+    }
+  }
+
+  // 创建单个条目
+  function createItem(item) {
+    const div = document.createElement('div');
+    div.className = 'item';
+    div.setAttribute('onclick', `copyTxt('${item.id}', '${item.context.replace(/'/g, "\\'")}')`);
+    div.innerHTML = `<div class="text-part">${item.id}. ${item.context}</div>`;
+    return div;
+  }
+
+  // 获取全部数据
+  function loadData() {
+    if (allData.length > 0) {
+      return;
+    }
+
+    const xhr = new XMLHttpRequest();
+    const dev_url = "http://1.95.169.223";
+    xhr.open("GET", `${dev_url}/fang3/zfy`);
+    xhr.send();
+    xhr.onreadystatechange = function () {
+      if (xhr.readyState === 4 && xhr.status === 200) {
+        const res = JSON.parse(xhr.responseText);
+        allData = res.data || [];
+      } else if (xhr.readyState === 4) {
+        tatol(1, "请求异常", 1);
+      }
+    };
+  }
+
+  // 显示指定范围的数据
+  function showRange(start, end) {
+    if (allData.length === 0) {
+      tatol(1, "请先加载数据", 1);
+      return;
+    }
+
+    const filtered = allData.filter(item => parseInt(item.id) >= start && parseInt(item.id) <= end);
+    renderData(filtered);
+  }
+
+  // 切换布局
+  function toggleLayout() {
+    isSingleColumn = !isSingleColumn;
+    const toggleBtn = document.getElementById('toggleLayoutBtn');
+    toggleBtn.textContent = isSingleColumn ? '双列显示' : '单列显示';
+    
+    // 重新渲染当前显示的数据
+    const container = document.getElementById('listBox');
+    const items = container.querySelectorAll('.item');
+    if (items.length > 0) {
+      const currentData = Array.from(items).map(item => {
+        const id = item.querySelector('.text-part').textContent.split('.')[0];
+        const context = item.querySelector('.text-part').textContent.split('. ')[1];
+        return { id, context };
+      });
+      renderData(currentData);
+    }
+  }
+
+  // 页面加载时请求数据
+  window.onload = function () {
+    loadData();
+  };
+</script>
+
+</body>
 </html>
