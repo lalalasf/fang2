@@ -18,7 +18,7 @@ body {
 .btn-group {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  margin-bottom: 10px;
   gap: 10px;
 }
 
@@ -116,6 +116,26 @@ body {
 #ICPFiling {
   display: block;
   text-align: center;
+  color: cadetblue;
+  margin-top: 2rem;
+}
+.hint{
+  margin-top: -10px;
+  margin-bottom: -10px;
+}
+
+.github-style-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 3px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #24292e;
+  background-color: #f6f8fa;
+  border: 1px solid rgba(27, 31, 35, 0.15);
+  border-radius: 6px;
+  text-decoration: none;
 }
 
 /* 桌面端调整按钮宽度 */
