@@ -127,7 +127,8 @@ body {
 .github-style-btn {
   display: inline-flex;
   align-items: center;
-  padding: 3px 12px;
+  padding: 3px 10px;
+  margin: 5px 0 0 13px;
   font-size: 12px;
   font-weight: 600;
   line-height: 20px;
