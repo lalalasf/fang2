@@ -28,19 +28,19 @@ function sendPostRequest() {
   };
 
   // API 端点
-  const dev_url = "https://mzamusement.cn";
-  const text_url = "http://127.0.0.1:9111";
-  const api_url = dev_url + "/fang3/a/update";
-  
+  const apiUrl = ServerConfig.get('baseUrl');
+  console.log("URL:", apiUrl);
+  const api_url = apiUrl + "/fang3/a/update";
+
   console.log(JSON.stringify(requestData));
 
   fetch(api_url, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(requestData)
-    })
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(requestData)
+  })
     .then(response => {
       // console.log(response)
       if (!response.ok) {

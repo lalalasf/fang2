@@ -157,7 +157,6 @@ function loadData() {
 
   // 防止重复请求
   if (isRequesting) {
-    tatol(1, "正在加载数据，请稍候...", 1);
     return;
   }
 
@@ -167,43 +166,50 @@ function loadData() {
 
   isRequesting = true;
 
-  const xhr = new XMLHttpRequest();
-  const dev_url = "https://mzamusement.cn";
-  const text_url = "http://127.0.0.1:9111";
-  const api_url = text_url;
-  xhr.open("GET", `${api_url}/fang3/zfy`);
-  xhr.send();
+  const apiUrl = ServerConfig.get('baseUrl');
+  console.log("URL:", apiUrl);
 
-  xhr.onreadystatechange = function() {
-    if (xhr.readyState === 4) {
+  fetch(`${apiUrl}/fang3/zfy`, {
+    method: 'GET',
+    headers: {
+      'Authorization': localStorage.getItem('token') || '',
+      'Content-Type': 'application/json',
+    },
+  })
+    .then(response => {
+      if (!response.ok) {
+        return response.json().then(err => {
+          throw new Error(err.message || `HTTP ${response.status}`);
+        }).catch(() => {
+          throw new Error(`HTTP ${response.status}`);
+        });
+      }
+      return response.json();
+    })
+    .then(res => {
+      // console.log("API 响应数据:", res);
+      allData = res.data || []; // 注意这里去掉了 const，更新全局变量
+      localStorage.setItem('blessingDataTime', Date.now().toString());
+      showRange(1, 50);
+      isRequesting = false;
+    })
+    .catch(error => {
+      console.error("请求失败完整日志:", error);
+      document.getElementById("listBox").innerHTML = `
+       <p style="text-align:center; color: red;">
+         请求失败: ${error.message}<br>
+         ......
+       </p>
+     `;
       isRequesting = false;
 
-      if (xhr.status === 200) {
-        try {
-          const res = JSON.parse(xhr.responseText);
-          allData = res.data || [];
-
-          // 保存到本地存储
-          localStorage.setItem('blessingData', JSON.stringify(allData));
-          localStorage.setItem('blessingDataTime', new Date().getTime().toString());
-
-          // 设置1分钟后清除数据
-          setTimeout(() => {
-            localStorage.removeItem('blessingData');
-            localStorage.removeItem('blessingDataTime');
-          }, DATA_EXPIRY_TIME);
-
-          showRange(1, 50); // 数据加载完成后自动显示1-50条
-        } catch (e) {
-          tatol(1, "数据解析失败", 1);
-          document.getElementById("listBox").innerHTML = '<p style="text-align:center;">数据加载失败</p>';
-        }
-      } else {
-        tatol(1, "请求异常", 1);
-        document.getElementById("listBox").innerHTML = '<p style="text-align:center;">网络请求失败</p>';
-      }
-    }
-  };
+      // 3秒后自动重试
+      // setTimeout(() => {
+      //   if (allData.length === 0) {
+      //     loadData();
+      //   }
+      // }, 3000);
+    });
 }
 
 // 显示指定范围的数据
@@ -243,9 +249,23 @@ function toggleLayout() {
 }
 
 // 页面加载时直接加载数据
-window.onload = function() {
+document.addEventListener('DOMContentLoaded', function () {
   // 初始化加载数据
   loadData();
   // 清空筛选输入框
   document.getElementById("idFilterInput").value = "";
-};
+
+  // 获取当前环境
+  // console.log('当前环境:', ServerConfig.getCurrentEnv());
+  // // 获取API基础地址
+  // const apiUrl = ServerConfig.get('baseUrl');
+  // console.log(apiUrl);
+});
+
+// 立即执行加载，不等待DOMContentLoaded
+// 这样可以更早开始请求
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', loadData);
+} else {
+  loadData();
+}
