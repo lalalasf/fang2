@@ -5,6 +5,7 @@
 
 body {
   --my-font-size: 3.5rem;
+  background-image: url(../img/background.jpg);
 }
 
 /* 提示框 */
