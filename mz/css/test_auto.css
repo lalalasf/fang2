@@ -1,0 +1,239 @@
+/* auto.css */
+body {
+    font-family: 'Microsoft YaHei', sans-serif;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1%;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+h1 {
+    text-align: center;
+    color: #2c3e50;
+    margin-bottom: 30px;
+}
+
+.container {
+    background-color: white;
+    border-radius: 8px;
+    padding: 1px 10px 10px 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.hint a {
+    padding-left: 2%;
+    color: #3498db;
+    text-decoration: none;
+}
+
+.display-box {
+    min-block-size: 55px;
+    max-block-size: 55px;
+    border: 2px solid #3498db;
+    border-radius: 6px;
+    padding: 5px;
+    margin-bottom: 2px;
+    font-size: 18px;
+    line-height: 1.6;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow-wrap: break-word;
+}
+
+.display-box:hover {
+    background-color: #f8f9fa;
+    border-color: #2980b9;
+}
+
+.display-box.copied {
+    background-color: #e8f7e8;
+    border-color: #27ae60;
+}
+
+.copy-message {
+    position: absolute;
+    top: -10px;
+    right: 10px;
+    background-color: #27ae60;
+    color: white;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 12px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.copy-message.show {
+    opacity: 1;
+}
+
+.info {
+    text-align: center;
+    color: #7f8c8d;
+    font-size: 14px;
+}
+
+.loading {
+    text-align: center;
+    padding: 20px;
+    color: #7f8c8d;
+}
+
+.error {
+    color: #e74c3c;
+    text-align: center;
+    padding: 20px;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+button {
+    background-color: #3498db;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #2980b9;
+}
+
+button:disabled {
+    background-color: #bdc3c7;
+    cursor: not-allowed;
+}
+
+.id-display {
+    margin-left: 32%;
+    margin-top: 5px;
+    font-size: 1.17rem;
+    font-weight: bold;
+    color: #3498db;
+}
+
+.controls input {
+    margin: 0 5px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    text-align: center;
+}
+
+.controls button#jumpBtn {
+    background-color: #2ecc71;
+}
+
+.controls button#jumpBtn:hover {
+    background-color: #27ae60;
+}
+
+.toast-message {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    padding: 12px 24px;
+    border-radius: 4px;
+    background-color: #333;
+    color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    display: none;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.toast-success {
+    background-color: #4CAF50;
+}
+
+.toast-error {
+    background-color: #F44336;
+}
+
+.toast-info {
+    background-color: #2196F3;
+}
+
+.exclude-controls-input {
+    font-size: 0.88rem;
+    inline-size: 90%;
+    padding: 8px;
+    margin-block-start: 10px
+}
+
+.bottom-desc {
+    text-align: left;
+    color: #7f8c8d;
+    font-size: 14px;
+    padding: 5px;
+}
+
+/* 弹窗容器样式，用于定位弹窗 */
+#toastContainer {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 10000; /* 确保在最顶层 */
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end; /* 使弹窗靠右对齐 */
+    gap: 10px; /* 弹窗之间的间距 */
+}
+
+/* 单个弹窗的基本样式 */
+.toast {
+    padding: 12px 20px;
+    border-radius: 8px;
+    color: white;
+    font-size: 14px;
+    font-weight: 500;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+    max-width: 300px;
+    word-wrap: break-word;
+    opacity: 0; /* 初始透明 */
+    /* transform: translateY(-20px); 初始位置在上方 */
+    transition: opacity 0.3s ease, transform 0.3s ease; /* 淡入淡出和滑动动画 */
+    /* 通过不同类名应用不同背景色 */
+}
+
+/* 显示时的样式 */
+.toast.show {
+    opacity: 1;
+    transform: translateY(0); /* 滑动到正常位置 */
+}
+
+/* 成功弹窗样式 */
+.toast.success {
+    background-color: #28a745; /* 绿色 */
+}
+
+/* 错误弹窗样式 */
+.toast.error {
+    background-color: #dc3545; /* 红色 */
+}
+
+/* 提示弹窗样式 */
+.toast.info {
+    background-color: #17a2b8; /* 蓝色 */
+}
+
+/* 可选：添加一个进度条指示器 */
+.toast-progress {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    height: 3px;
+    background-color: rgba(255, 255, 255, 0.5);
+    width: 100%;
+    border-radius: 0 0 8px 8px;
+}

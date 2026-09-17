@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>按键宏复制</title>
+<link href="../css/auto.css?v=260917220253" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+<div class="hint">
+<p>按键宏复制，点击后自动切换到下一行<a href="javascript:history.back()">返回首页</a></p>
+</div>
+<div class="loading" id="loading">正在加载数据...</div>
+<div class="error" id="error" style="display: none;"></div>
+<div id="content" style="display: none;">
+<div class="display-box" id="displayBox">
+<span id="blessingText"></span>
+<span class="copy-message" id="copyMessage">已复制</span>
+</div>
+<div class="id-display" id="idDisplay"></div>
+<div class="controls">
+<button disabled="" id="prevBtn">上一条</button>
+<button disabled="" id="nextBtn">下一条</button>
+<button id="toShowBtn" onclick="toShowNext(50)">第51条</button>
+<input id="jumpInput" inputmode="numeric" pattern="\d*" placeholder="跳转到编号" style="inline-size: 100px; padding: 5px;" type="text"/>
+</div>
+<div class="info">
+                手动排除已使用的祝福语：<br/>{1 第1条} {2-6 第2、3、4、5、6条}
+            </div>
+<div class="exclude-controls">
+<input class="exclude-controls-input" id="excludeInput" placeholder="输入编号排除 示例： 1  2-6  7" type="text"/>
+</div>
+</div>
+</div>
+<div class="bottom">
+<div class="bottom-desc">
+            使用案例，连点器需自己下载。可能遇到的问题：<br/>
+            1 输入法需打开获取粘贴板权限<br/>
+            2 模拟器按键延迟建议500ms-1000ms<br/>
+            3 其他问题请在gitee提交 <a href="https://gitee.com/lalalasf/fang3-html/issues/ICGXI3">提交</a>
+</div>
+<img src="../img/1.jpg" style="max-width:98%; height:auto;"/>
+</div>
+<script src="../config/config.js?v=260917220253"></script>
+<script src="../js/auto.js?v=260917220253"> </script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>祝福语</title>
+<link href="../css/index.css?v=260917220253" rel="stylesheet"/>
+</head>
+<body>
+<div class="header">
+<a class="github-style-btn" href="https://gitee.com/lalalasf/fang3-html/issues/ICGXI3">
+<span>建议</span>
+</a>
+<a class="github-style-btn" href="javascript:void(0)" onclick="clearTemplateData()">
+<span> 清空全部 </span>
+</a>
+<a class="github-style-btn" href="javascript:void(0)" onclick="getALlTemplateData()">
+<span>复制全部</span>
+</a>
+<a class="github-style-btn" href="javascript:void(0)" onclick="openTemplateDataModal()">
+<span> 添加 </span>
+</a>
+</div>
+<div class="container">
+<div class="btn-group">
+<button class="btn-range" onclick="showRange(1, 50)">1-50条</button>
+<button class="btn-range" onclick="showRange(51, 100)">51-100条</button>
+<button class="btn-layout" id="toggleLayoutBtn" onclick="toggleLayout()">单列显示</button>
+</div>
+<div id="listBox"></div>
+</div>
+<!-- 回到顶部按钮 -->
+<button class="back-to-top" id="backToTop" onclick="backToTop()">↑</button>
+<!-- TemplateData 存储弹框 -->
+<div class="modal" id="templateDataModal">
+<div class="modal-content">
+<div class="modal-body">
+<div class="input-group">
+<label for="templateDataInput">输入数据： （修改即覆盖）<button class="modal-close" onclick="closeTemplateDataModal()">×</button>
+</label>
+<div style="display: flex; justify-content: flex-end; width: 66.6%;margin-bottom: 10px;">
+<a href="javascript:void(0)" id="clearTemplateDataButton">清空</a>
+</div>
+<textarea id="templateDataInput" placeholder="示例：分割符号[，, .]
+ 1.xxxx 
+ 2.xxxx 
+ 3.xxxx
+ ...... 
+ 50.xxx "></textarea>
+</div>
+<div class="button-container" style="display: flex; justify-content: center;">
+<button id="saveTemplateDataButton">保存数据</button>
+</div>
+<div id="templateDataResponse"></div>
+</div>
+</div>
+</div>
+<style>
+        /* 弹框样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 9999;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            overflow: auto;
+            background-color: rgba(0, 0, 0, 0.4);
+        }
+
+        .modal-content {
+            background-color: #fefefe;
+            margin: 5% auto;
+            padding: 15px;
+            border: 1px solid #888;
+            width: 90%;
+            max-width: 95%;
+            max-height: 80%;
+            overflow-y: auto;
+            border-radius: 8px;
+
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .modal-close {
+            color: #aaa;
+            float: right;
+            font-size: 24px;
+            font-weight: bold;
+            background: none;
+            border: none;
+            cursor: pointer;
+        }
+
+        .modal-close:hover,
+        .modal-close:focus {
+            color: black;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .input-group {
+            margin-bottom: 15px;
+        }
+
+        .input-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-weight: bold;
+            font-size: 14px;
+        }
+
+        .input-group textarea {
+            width: 100%;
+            height: 200px;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-family: monospace;
+            font-size: 13px;
+            resize: vertical;
+            box-sizing: border-box;
+        }
+
+        .button-container {
+            margin-top: 15px;
+        }
+
+        .button-container button {
+            padding: 8px 16px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 14px;
+            width: 50%;
+        }
+
+        .button-container button:hover {
+            background-color: #45a049;
+        }
+
+        #templateDataResponse {
+            margin-top: 15px;
+            padding: 8px;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        #templateDataResponse.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        #templateDataResponse.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .modal-content {
+                margin: 2% auto;
+                padding: 12px;
+            }
+
+            .modal-header h3 {
+                font-size: 16px;
+            }
+
+            .modal-close {
+                font-size: 20px;
+            }
+
+            .input-group textarea {
+                height: 180px;
+                font-size: 12px;
+            }
+
+            .button-container button {
+                padding: 10px;
+                font-size: 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .modal-content {
+                margin: 1% auto;
+                padding: 10px;
+                margin-top: 20%;
+            }
+
+            .modal-header h3 {
+                font-size: 15px;
+            }
+
+            .input-group textarea {
+                height: 200px;
+            }
+        }
+    </style>
+<script src="../js/pako.min.js?v=260917220253" type="text/javascript"></script>
+<script src="../config/config.js?v=260917220253" type="text/javascript"></script>
+<script src="../js/index_min.js?v=260917220253" type="text/javascript"></script>
+</body>
+</html>

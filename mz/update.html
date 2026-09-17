@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>update</title>
+<link href="css/update.css?v=260917220253" rel="stylesheet"/>
+</head>
+<body>
+<div class="container">
+<!-- <a href="viewport.html">view</a> -->
+<div class="input-group">
+<label for="contentInput">输入更新内容：·示例在下面·</label>
+<div style="display: flex; justify-content: space-between; width: 100%;">
+<a href="test_auto.html" target="_blank">测试auto</a>
+<a href="javascript:void(0)" id="clearButton">清空</a>
+</div>
+<textarea id="contentInput" placeholder="请输入内容..."></textarea>
+</div>
+<div class="input-group">
+<label for="tokenInput">Token：</label>
+<input id="tokenInput" type="text" value=""/>
+</div>
+<div class="button-container">
+<button id="sendButton">点击更新</button>
+<button id="sendButtonTest">测试更新</button>
+<button id="noticeButton">公告更新</button>
+</div>
+<div class="button-container">
+<button id="initDataButton">初始化</button>
+<button id="initDataButtonTest">初始化测试</button>
+<button id="noticeButtonInit">公告初始化</button>
+</div>
+<div id="response"></div>
+</div>
+<div>
+<p styel="margin-left:10px;">示例：（公告写入 &gt;&gt; 101）</p>
+<p styel="margin-left:10px;"> 1.xxxx</p>
+<p styel="margin-left:10px;"> 2.xxxx </p>
+<p styel="margin-left:10px;"> ......</p>
+<p styel="margin-left:10px;"> 50.xxx </p>
+</div>
+<script src="../config/config.js?v=260917220253"></script>
+<script src="js/update.js?v=260917220253"></script>
+</body>
+</html>

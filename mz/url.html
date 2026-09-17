@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>A</title>
+<link href="css/url.css?v=260917220253" rel="stylesheet"/>
+</head>
+<body>
+<div class="auth-modal" id="authModal">
+<div class="auth-content">
+<h3>请输入Token</h3>
+<input id="tokenInput" placeholder="输入Token" type="password"/>
+<button onclick="checkToken()">验证</button>
+<div class="error-message" id="tokenError" style="display: none;">Token验证失败，请重新输入</div>
+</div>
+</div>
+<div class="container" id="mainContainer" style="display: none;">
+<label>页码:</label>
+<input id="pageInput" min="1" style="width: 15%;" type="number" value="1"/>
+<label>每页数量:</label>
+<input id="pageSizeInput" max="100" min="1" style="width: 15%;" type="number" value="10"/>
+<input id="createTime" name="meeting-time" type="date"/>
+<button onclick="fetchData()" style="margin: 6px 0 3px 8px; width: 30%; padding: 3px 8px 3px 8px;">查询</button>
+<div class="filters">
+<!-- <div class="filter-item">
+        <label>页码:</label>
+        <input id="pageInput" type="number" min="1" value="1" style="width: 30%;">
+        <label>每页数量:</label>
+        <input id="pageSizeInput" type="number" min="1" max="100" value="20" style="width: 30%;">
+      </div>
+      <div class="filter-item">
+
+      </div>
+      <div class="filter-item">
+        <label>创建时间:</label>
+        
+      </div>-->
+<!-- <button onclick="fetchData()">查询</button>  -->
+<div id="dataTable2">
+<div>
+          前日/今日:<span id="preCopyCount">0</span><br/>
+            UV: <span id="preUv">0</span>
+            PV: <span id="prePv">0</span>
+</div>
+<div>
+          共复制: <span id="copyCount">0</span>
+            UV: <span id="uv">0</span>
+            PV: <span id="pv">0</span>
+</div>
+</div>
+</div>
+<div class="data-container">
+<table id="dataTable">
+<thead>
+<tr>
+<th width="2.5%">行数</th>
+<th width="7%">A</th>
+<th width="9%">IP</th>
+<th width="11%">URL</th>
+<th width="5%">url次数</th>
+<th width="5%">TC</th>
+<th width="5%">QC</th>
+<th width="10%">更新时间</th>
+</tr>
+</thead>
+<tbody id="tableBody">
+</tbody>
+</table>
+</div>
+<div class="pagination">
+<button class="page-btn" id="firstPage" onclick="goToPage(1)">首页</button>
+<button class="page-btn" id="prevPage" onclick="prevPage()">上一页</button>
+<span id="pageInfo">第 1 页</span>
+<button class="page-btn" id="nextPage" onclick="nextPage()">下一页</button>
+<button class="page-btn" id="lastPage" onclick="goToLastPage()">末页</button>
+<span id="totalCount">共 0 条</span>
+</div>
+</div>
+<script src="../config/config.js?v=260917220253"></script>
+<script src="js/url.js?v=260917220253"></script>
+</body>
+</html>

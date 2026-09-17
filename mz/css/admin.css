@@ -1,0 +1,162 @@
+/* 管理页面样式 */
+.admin-header {
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+.admin-header h1 {
+  margin: 0;
+  font-size: 1.5em;
+  color: #333;
+}
+
+.admin-menu {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 8px;
+}
+
+.admin-menu-item {
+  background-color: #ecf2fc;
+  color: #333;
+  border: 1px solid #d1d5da;
+  border-radius: 6px;
+  text-decoration: none;
+  text-align: center;
+}
+
+.admin-footer {
+  text-align: center;
+  margin-top: 40px;
+  padding: 20px 0;
+  border-top: 1px solid #eaeaea;
+  font-size: 0.8em;
+  color: gray;
+}
+
+/* 登录表单样式 */
+.login-container {
+  max-width: 400px;
+  margin: 50px auto;
+  padding: 30px;
+  background-color: #ecf2fc;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+.login-header {
+  text-align: center;
+  margin-bottom: 30px;
+}
+
+.login-header h2 {
+  margin: 0;
+  color: #333;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.form-group label {
+  font-size: 14px;
+  color: #555;
+}
+
+.form-group input {
+  padding: 10px;
+  border: 1px solid #d1d5da;
+  border-radius: 4px;
+  font-size: 14px;
+}
+
+.error-message {
+  color: #d73a49;
+  font-size: 12px;
+  text-align: center;
+  margin-top: 10px;
+}
+
+/* 回到顶部按钮 */
+.back-to-top {
+  position: fixed;
+  bottom: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background-color: #0366d6;
+  color: white;
+  border: none;
+  cursor: pointer;
+  font-size: 20px;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+
+/* 头部样式 */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #f8f9fa;
+  border-bottom: 1px solid #eaeaea;
+  margin-bottom: 20px;
+}
+
+.github-style-btn {
+  display: inline-block;
+  padding: 6px 12px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 20px;
+  color: #24292e;
+  background-color: #fafbfc;
+  border: 1px solid #d1d5da;
+  border-radius: 6px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+}
+
+/* 移动端适配 */
+@media (max-width: 600px) {
+  .admin-container {
+    padding: 0 15px 15px 15px;
+  }
+  
+  .admin-header h1 {
+    font-size: 1.3em;
+  }
+  
+  .admin-menu-item {
+    padding: 10px;
+    font-size: 0.85em;
+  }
+  
+  .login-container {
+    margin: 30px auto;
+    padding: 20px;
+  }
+  
+  .header {
+    flex-direction: column;
+    gap: 10px;
+    align-items: flex-start;
+  }
+}
+
+

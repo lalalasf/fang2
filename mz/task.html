@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<link href="css/task.css?v=260917220253" rel="stylesheet"/>
+<link href="css/datetime-picker.css?v=260917220253" rel="stylesheet"/>
+<script src="../config/config.js?v=260917220253"></script>
+<title>任务管理</title>
+</head>
+<body>
+<div class="task-container">
+<div class="task-header">
+<a class="admin-menu-item" href="../index.html">首页</a>
+      任务管理
+      <a class="admin-menu-item" href="admin.html">管理页面</a>
+<!-- &nbsp;&nbsp;<button type="button" class="header-btn" onclick="openSearchDialog()">查询任务</button> -->
+        <button class="header-btn" onclick="openAddDialog()" type="button">添加任务</button>
+</div>
+<div id="toastContainer"></div>
+<!-- 搜索栏 -->
+<div class="search-bar">
+<input class="search-input" id="searchUserName" placeholder="用户名称" type="text"/>
+<select class="search-input" id="searchMethod">
+<option value="">全部方法</option>
+<option value="update">update</option>
+<option value="delete">delete</option>
+<option value="insert">insert</option>
+</select>
+<select class="search-select" id="searchState">
+<option value="">全部状态</option>
+<option value="0">执行中</option>
+<option value="1">执行完成</option>
+<option value="2">执行失败</option>
+</select>
+<button class="header-btn" onclick="searchTasks()" type="button">搜索</button>
+<button class="header-btn btn-reset" onclick="resetSearch()" type="button">重置</button>
+</div>
+<div class="task-list" id="taskList">
+<div class="loading-message">加载中...</div>
+</div>
+<!-- 分页 -->
+<div class="pagination">
+<button class="page-btn" onclick="goToPage(currentPage - 1)">上一页</button>
+<span id="pageInfo">第 1 页 / 共 1 页</span>
+<button class="page-btn" onclick="goToPage(currentPage + 1)">下一页</button>
+</div>
+<!-- 任务编辑/添加对话框 -->
+<div class="custom-dialog" id="taskDialog">
+<div class="dialog-content">
+<div class="dialog-header">
+<h3 id="dialogTitle">添加任务</h3>
+<button class="dialog-close" onclick="closeTaskDialog()">×</button>
+</div>
+<div class="dialog-body">
+<input id="taskId" type="hidden"/>
+<div class="form-group">
+<label>方法</label>
+<select class="dialog-input" id="method">
+<option value="update">update</option>
+<option value="delete">delete</option>
+<option value="insert">insert</option>
+</select>
+</div>
+<div class="form-group">
+<label>执行内容</label>
+<textarea class="dialog-input" id="execContext" placeholder="请输入执行内容" rows="3"></textarea>
+</div>
+<div class="form-group">
+<label>执行时间</label>
+<input class="dialog-input" id="execTime" placeholder="点击选择日期时间" readonly="" type="text"/>
+</div>
+</div>
+<div class="dialog-footer">
+<button class="btn btn-cancel" onclick="closeTaskDialog()">取消</button>
+<button class="btn btn-confirm" onclick="confirmTaskDialog()">确认</button>
+</div>
+</div>
+</div>
+<!-- 删除确认对话框 -->
+<div class="custom-dialog" id="deleteDialog">
+<div class="dialog-content dialog-small">
+<div class="dialog-header">
+<h3>确认删除</h3>
+<button class="dialog-close" onclick="closeDeleteDialog()">×</button>
+</div>
+<div class="dialog-body">
+<p class="confirm-text">确定要删除该任务吗？</p>
+</div>
+<div class="dialog-footer">
+<button class="btn btn-cancel" onclick="closeDeleteDialog()">取消</button>
+<button class="btn btn-delete" onclick="confirmDelete()">删除</button>
+</div>
+</div>
+</div>
+</div>
+<script src="js/datetime-picker.js?v=260917220253"></script>
+<script src="js/task.js?v=260917220253"></script>
+</body>
+</html>

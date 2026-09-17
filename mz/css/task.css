@@ -1,0 +1,682 @@
+/* 基础样式 */
+body {
+  font-family: Arial, sans-serif;
+  background-color: #E0F7FA;
+  color: #212121;
+  margin: 0;
+  padding: 0;
+}
+
+.task-container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  padding: 0 8px;
+}
+
+.task-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin: 8px;
+  flex-wrap: nowrap;
+}
+
+.admin-menu-item {
+  color: #4CAF50;
+  text-decoration: none;
+  margin: 0 8px;
+}
+
+.admin-menu-item:hover {
+  text-decoration: underline;
+}
+
+.header-btn {
+  padding: 4px 10px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 14px;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  -webkit-tap-highlight-color: transparent;
+  -webkit-touch-callout: none;
+  outline: none;
+  box-shadow: none;
+  text-shadow: none;
+  background-image: none;
+  border-image: none;
+}
+
+.header-btn::-moz-focus-inner {
+  border: 0;
+  padding: 0;
+}
+
+.header-btn:hover,
+.header-btn:focus,
+.header-btn:active {
+  background: #45a049;
+  outline: none;
+  box-shadow: none;
+  text-shadow: none;
+  background-image: none;
+  border-image: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.btn-reset {
+  background: #999;
+}
+
+.btn-reset:hover {
+  background: #777;
+}
+
+/* 搜索栏样式 */
+.search-bar {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 8px;
+  margin-bottom: 16px;
+  padding: 12px;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  align-items: center;
+}
+
+.search-input,
+.search-select {
+  padding: 6px 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  outline: none;
+}
+
+.search-input:focus,
+.search-select:focus {
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.search-input {
+  flex: 1;
+  min-width: 120px;
+}
+
+.search-select {
+  min-width: 100px;
+}
+
+/* 任务列表样式 */
+.task-list {
+  width: 100%;
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  box-sizing: border-box;
+  overflow: hidden;
+}
+
+.task-table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.task-table th,
+.task-table td {
+  padding: 8px 6px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.task-table th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+}
+
+.task-table tr:hover {
+  background-color: #f9f9f9;
+}
+
+.task-table tr:last-child td {
+  border-bottom: none;
+}
+
+/* 状态标签 */
+.status-badge {
+  display: inline-block;
+  padding: 4px 5px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+}
+
+.status-running {
+  background-color: #FFC107;
+  color: #333;
+}
+
+.status-success {
+  background-color: #4CAF50;
+  color: white;
+}
+
+.status-failed {
+  background-color: #f44336;
+  color: white;
+}
+
+/* 按钮样式 */
+.btn {
+  padding: 4px 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 12px;
+  height: 24px;
+  line-height: 16px;
+}
+
+.btn-edit {
+  background: #4CAF50;
+  color: white;
+}
+
+.btn-delete {
+  background: #f44336;
+  color: white;
+}
+
+.btn:hover {
+  opacity: 0.8;
+}
+
+.item-actions {
+  display: flex;
+  gap: 6px;
+}
+
+/* 分页样式 */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 16px;
+  margin: 20px 0;
+  padding: 12px;
+}
+
+.page-btn {
+  padding: 6px 16px;
+  background: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.page-btn:hover {
+  background: #45a049;
+}
+
+.page-btn:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+#pageInfo {
+  font-size: 14px;
+  color: #666;
+}
+
+/* 提示信息样式 */
+.error-message {
+  text-align: center;
+  color: red;
+  margin: 20px 0;
+}
+
+.loading-message {
+  text-align: center;
+  color: #666;
+  margin: 20px 0;
+}
+
+.empty-message {
+  text-align: center;
+  color: #999;
+  margin: 40px 0;
+}
+
+/* 弹窗容器样式 */
+#toastContainer {
+  position: fixed;
+  top: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 10000;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+}
+
+/* 单个弹窗的基本样式 */
+.toast {
+  padding: 12px 20px;
+  border-radius: 8px;
+  color: white;
+  font-size: 14px;
+  font-weight: 500;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  max-width: 300px;
+  word-wrap: break-word;
+  opacity: 0;
+  transition: opacity 0.3s ease, transform 0.3s ease;
+}
+
+.toast.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.toast.success {
+  background-color: #28a745;
+}
+
+.toast.error {
+  background-color: #dc3545;
+}
+
+.toast.info {
+  background-color: #17a2b8;
+}
+
+.toast-progress {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  height: 3px;
+  background-color: rgba(255, 255, 255, 0.5);
+  width: 100%;
+  border-radius: 0 0 8px 8px;
+}
+
+/* 自定义对话框样式 */
+.custom-dialog {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: none;
+  justify-content: center;
+  align-items: center;
+  z-index: 20000;
+}
+
+.custom-dialog.show {
+  display: flex;
+}
+
+.dialog-content {
+  background-color: white;
+  border-radius: 8px;
+  width: 90%;
+  max-width: 500px;
+  max-height: 90vh;
+  overflow-y: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+}
+
+.dialog-small {
+  max-width: 350px;
+}
+
+.dialog-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.dialog-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 600;
+  color: #333;
+}
+
+.dialog-close {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  color: #999;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  transition: background-color 0.2s;
+}
+
+.dialog-close:hover {
+  background-color: #f0f0f0;
+}
+
+.dialog-body {
+  padding: 20px;
+}
+
+.form-group {
+  margin-bottom: 16px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 6px;
+  font-size: 14px;
+  color: #333;
+  font-weight: 500;
+}
+
+.dialog-input {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  box-sizing: border-box;
+  resize: vertical;
+  font-family: Arial, sans-serif;
+}
+
+.dialog-input[readonly] {
+  cursor: pointer;
+  background-color: #fff;
+}
+
+.dialog-input[readonly]:hover {
+  border-color: #4CAF50;
+}
+
+.dialog-input:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.2);
+}
+
+.dialog-footer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 12px 20px;
+  border-top: 1px solid #e0e0e0;
+  gap: 12px;
+}
+
+.btn-cancel {
+  background: #f0f0f0;
+  color: #333;
+  padding: 8px 16px;
+  font-size: 14px;
+  height: 32px;
+}
+
+.btn-confirm {
+  background: #4CAF50;
+  color: white;
+  padding: 8px 16px;
+  font-size: 14px;
+  height: 32px;
+}
+
+.confirm-text {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+  margin: 20px 0;
+}
+
+/* 移动端适配 */
+@media (max-width: 768px) {
+  .task-container {
+    padding: 0 4px;
+  }
+  
+  .search-bar {
+    flex-wrap: nowrap;
+    align-items: center;
+    gap: 6px;
+    padding: 8px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .search-input,
+  .search-select {
+    flex: 1;
+    min-width: 80px;
+    padding: 8px;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  
+  .task-table {
+    font-size: 11px;
+  }
+  
+  .task-table th,
+  .task-table td {
+    padding: 6px 4px;
+  }
+  
+  .btn {
+    padding: 6px 12px;
+    font-size: 12px;
+    height: 28px;
+    min-width: 60px;
+  }
+  
+  .pagination {
+    flex-wrap: wrap;
+    gap: 6px;
+    padding: 8px;
+  }
+  
+  .page-btn {
+    padding: 6px 12px;
+    font-size: 12px;
+  }
+  
+  .dialog-content {
+    width: 95%;
+    max-height: 95vh;
+    margin: 10px;
+  }
+  
+  .form-group {
+    margin-bottom: 12px;
+  }
+  
+  .form-group label {
+    font-size: 13px;
+    margin-bottom: 4px;
+  }
+  
+  .dialog-input {
+    padding: 10px;
+    font-size: 14px;
+    min-height: 40px;
+  }
+  
+  .task-header {
+    font-size: 14px;
+    margin: 6px;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: center;
+    align-items: center;
+    gap: 6px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  .admin-menu-item {
+    font-size: 12px;
+    margin: 0 2px;
+    flex-shrink: 0;
+  }
+  
+  .header-btn {
+    font-size: 12px;
+    padding: 6px 10px;
+    height: 28px;
+    flex-shrink: 0;
+  }
+  
+  /* 触摸优化 */
+  .btn,
+  .header-btn,
+  .page-btn {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+  }
+  
+  /* 日期时间输入框触摸优化 */
+  .dialog-input[readonly] {
+    -webkit-tap-highlight-color: transparent;
+    touch-action: manipulation;
+    font-size: 16px;
+  }
+  
+  /* 滚动优化 */
+  .task-list {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  
+  /* 确保表格在小屏幕上可以横向滚动 */
+  .task-table {
+    min-width: 500px;
+    border-collapse: collapse !important;
+  }
+}
+
+/* 修复表格列宽度和样式 */
+.task-table th,
+.task-table td {
+  box-sizing: border-box;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* 确保执行时间列正确显示 */
+.task-table th:nth-child(8),
+.task-table td:nth-child(8) {
+  /* 宽度由 JavaScript 动态设置 */
+}
+
+@media (max-width: 480px) {
+  /* 小屏幕适配：缩小列宽而不是隐藏列 */
+  .task-table th:nth-child(6),
+  .task-table td:nth-child(6),
+  .task-table th:nth-child(7),
+  .task-table td:nth-child(7),
+  .task-table th:nth-child(8),
+  .task-table td:nth-child(8) {
+    width: 8%;
+    font-size: 9px;
+    padding: 2px;
+  }
+
+  .task-header {
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+  
+  .search-bar {
+    flex-wrap: nowrap;
+    gap: 4px;
+  }
+  
+  .search-input,
+  .search-select {
+    flex: 1;
+    min-width: 60px;
+    font-size: 13px;
+    padding: 6px;
+    flex-shrink: 0;
+  }
+  
+  #searchMethod {
+    display: none;
+  }
+  
+  .btn {
+    padding: 4px 8px;
+    font-size: 11px;
+    height: 24px;
+    min-width: 50px;
+  }
+  
+  .header-btn {
+    font-size: 11px;
+    padding: 4px 8px;
+    height: 24px;
+  }
+  
+  .task-table {
+    font-size: 10px;
+  }
+  
+  .task-table th,
+  .task-table td {
+    padding: 4px 3px;
+  }
+  
+  .dialog-content {
+    width: 98%;
+    margin: 5px;
+  }
+  
+  .dialog-input {
+    padding: 8px;
+    font-size: 13px;
+  }
+  
+  .form-group {
+    margin-bottom: 10px;
+  }
+  
+  .form-group label {
+    font-size: 12px;
+  }
+  
+  .item-actions {
+    flex-direction: column;
+    gap: 4px;
+  }
+  
+  .item-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+}
